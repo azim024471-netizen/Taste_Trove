@@ -32,8 +32,8 @@ export default function Navbar() {
     return (
         <nav
             className={`sticky top-0 z-50 w-full border-b transition-all duration-300 ${isScrolled
-                    ? "bg-slate-50/90 border-slate-200 text-slate-800 backdrop-blur-md shadow-sm"
-                    : "bg-zinc-950 border-zinc-900/40 text-zinc-100"
+                ? "bg-slate-50/90 border-slate-200 text-slate-800 backdrop-blur-md shadow-sm"
+                : "bg-zinc-950 border-zinc-900/40 text-zinc-100"
                 }`}
         >
             <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
@@ -55,10 +55,10 @@ export default function Navbar() {
                                 key={link.path}
                                 href={link.path}
                                 className={`transition-all pb-1 ${isActive
-                                        ? "text-rose-600 border-b-2 border-rose-600 font-bold"
-                                        : isScrolled
-                                            ? "text-slate-600 hover:text-rose-600"
-                                            : "text-zinc-300 hover:text-rose-500"
+                                    ? "text-rose-600 border-b-2 border-rose-600 font-bold"
+                                    : isScrolled
+                                        ? "text-slate-600 hover:text-rose-600"
+                                        : "text-zinc-300 hover:text-rose-500"
                                     }`}
                             >
                                 {link.name}
@@ -67,20 +67,24 @@ export default function Navbar() {
                     })}
                 </div>
 
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-2 md:space-x-3">
                     <Link
-                        href="/dashboard/add-recipe"
-                        className="hidden lg:flex items-center space-x-1.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold px-4 py-2 rounded-xl transition-all shadow-md shadow-rose-600/20"
-                    >
-                        <FaPlus size={10} />
-                        <span>Share Recipe</span>
-                    </Link>
-                    <HiUserCircle
-                        size={28}
-                        className={`cursor-pointer transition-colors ${isScrolled ? "text-slate-400 hover:text-slate-900"
-                                : "text-zinc-400 hover:text-zinc-100"
+                        href="/Access/login"
+                        className={` text-[8px] md:text-xs font-bold px-2 py-1.5 md:px-4 md:py-2.5 rounded-lg  md:rounded-xl border transition-all duration-350 ${isScrolled
+                                ? "border-slate-300 text-zinc-300 hover:bg-slate-100 bg-slate-900"
+                                : "border-zinc-800 text-zinc-300 hover:bg-zinc-900 hover:text-zinc-100 bg-transparent"
                             }`}
-                    />
+                    >
+                        Sign In
+                    </Link>
+
+                    <Link
+                        href="/Access/register"
+                        className="bg-rose-600 hover:bg-rose-700 text-white md:text-xs text-[8px] px-2 py-1.5 font-bold md:px-4 md:py-2.5
+          md:rounded-xl rounded-lg transition-all shadow-md shadow-rose-600/10 active:scale-95"
+                    >
+                        Sign Up
+                    </Link>
                 </div>
             </div>
         </nav>

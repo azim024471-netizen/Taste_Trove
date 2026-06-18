@@ -1,12 +1,3 @@
-// import Image from 'next/image';
-// import Link from 'next/link';
-// import { FaUtensils, FaArrowRight, FaPlus, FaStar, FaRegClock } from 'react-icons/fa';
-
-// export default function Banner() {
-//     return (
-
-//     );
-// }
 
 
 import Image from 'next/image';
