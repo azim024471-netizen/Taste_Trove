@@ -3,15 +3,52 @@
 import { Button, Card, Form, Input, Label, TextField, FieldError, Description, InputGroup } from '@heroui/react';
 import Link from 'next/link';
 import { FcGoogle } from 'react-icons/fc';
-import { FaUtensils, FaEye, FaEyeSlash } from 'react-icons/fa'; 
+import { FaUtensils, FaEye, FaEyeSlash } from 'react-icons/fa';
 import React, { useState } from 'react';
+import { authClient } from '@/lib/auth-client';
+import { useRouter } from 'next/navigation';
 
 const SignUpPage = () => {
     const [showPassword, setShowPassword] = useState(false);
-
+    const [loading, setLoading] = useState(false);
+    const router = useRouter();
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
+
+
+    const handleSignup = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+
+        const formData = new FormData(e.currentTarget);
+        const dataEntries = Object.fromEntries(formData.entries());
+
+        const { name, email, password, image } = dataEntries;
+
+        const { data, error } = await authClient.signUp.email({
+            name,
+            email,
+            password,
+            image: image || "",
+        });
+
+        setLoading(false);
+
+        if (error) {
+            alert(error.message || "Something went wrong!");
+            return;
+        }
+
+        if (data) {
+            alert("Account created successfully!");
+            router.push("/");
+        }
+    };
+
+
+
+
 
     return (
         <div className='min-h-screen flex items-center justify-center bg-zinc-950/10 p-4
@@ -31,13 +68,14 @@ const SignUpPage = () => {
                     </p>
                 </div>
 
-                <Form className="flex w-full flex-col gap-4">
+                <Form className="flex w-full flex-col gap-4"
+                    onSubmit={handleSignup}>
 
                     <TextField isRequired name="name">
                         <Label className='font-semibold text-xs text-zinc-300 tracking-wide uppercase'>Full Name</Label>
                         <Input
                             placeholder="Enter your full name"
-                            variant="flat" 
+                            variant="flat"
                         />
                         <FieldError className="text-rose-500 text-xs mt-1 font-medium" />
                     </TextField>
@@ -95,9 +133,16 @@ const SignUpPage = () => {
                     </TextField>
 
 
-                    <Button type="submit" className='w-full bg-rose-600 hover:bg-rose-700 text-white font-bold h-11 rounded-xl transition-all shadow-lg shadow-rose-600/10 mt-2 active:scale-[0.98]'>
-                        Sign Up
+                    <Button
+                        type="submit"
+                        isLoading={loading}
+                        className='w-full bg-rose-600 hover:bg-rose-700 text-white font-bold h-11 rounded-xl
+                         transition-all shadow-lg shadow-rose-600/10 mt-2 active:scale-[0.98]'
+                    >
+                        {loading ? "Signing Up..." : "Sign Up"}
                     </Button>
+
+                   
                 </Form>
 
 
