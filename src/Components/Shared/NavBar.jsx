@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { FaUtensils, FaPlus, FaSignOutAlt } from "react-icons/fa";
 // import { HiUserCircle } from "react-icons/hi";
 import { authClient, useSession } from "@/lib/auth-client";
-import { Avatar, Button, toast } from "@heroui/react";
+import { Avatar, Button, Skeleton, toast } from "@heroui/react";
 
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -18,7 +18,8 @@ export default function Navbar() {
 
     console.log(user, 'user from nav')
 
-    const handleSignOut = async () => {
+
+ const handleSignOut = async () => {
     // setDropdownOpen(false);
     try {
       await authClient.signOut();
@@ -92,62 +93,58 @@ export default function Navbar() {
                         );
                     })}
                 </div>
-                <div className="flex items-center">
-                    {user ? (
+               <div className="flex items-center min-w-30 justify-end">
+    {isPending ? (
+        <div className="flex items-center space-x-3">
+            <Skeleton className="w-10 h-10 rounded-full bg-zinc-800 border border-zinc-700" />
+            <Skeleton className="w-16 h-6 rounded-lg bg-zinc-800" />
+        </div>
+    ) : user ? (
+        <div className="flex items-center space-x-3">
+            <div className="flex flex-col items-center gap-0.5">
+                <Avatar className="border-2 border-rose-500 w-9 h-9 md:w-10 md:h-10" size="sm">
+                    <Avatar.Image
+                        referrerPolicy="no-referrer"
+                        alt={user.name}
+                        src={user.image}
+                    />
+                    <Avatar.Fallback>{user.name?.charAt(0)}</Avatar.Fallback>
+                </Avatar>
 
+                <span className={`hidden sm:block text-[10px] font-bold max-w-30 truncate transition-colors duration-300 ${isScrolled ? "text-zinc-950" : "text-zinc-300"}`}>
+                    {user.name}
+                </span>
+            </div>
 
+            <button
+                onClick={handleSignOut}
+                className="text-rose-600 hover:text-rose-700 text-xs md:text-sm font-bold px-2 py-1.5 transition-all active:scale-95 flex items-center gap-2 bg-transparent"
+            >
+                <FaSignOutAlt className="text-xs opacity-90" />
+                <span>Logout</span>
+            </button>
+        </div>
+    ) : (
+        <div className="flex items-center space-x-2 md:space-x-3">
+            <Link
+                href="/Access/login"
+                className={`text-[8px] md:text-xs font-bold px-2 py-1.5 md:px-4 md:py-2.5 rounded-lg md:rounded-xl border transition-all duration-350 ${isScrolled
+                        ? "border-slate-300 text-zinc-300 hover:bg-slate-100 bg-slate-900"
+                        : "border-zinc-800 text-zinc-300 hover:bg-zinc-900 hover:text-zinc-100 bg-transparent"
+                    }`}
+            >
+                Sign In
+            </Link>
 
-
-                        <div className="flex items-center space-x-3">
-
-                            <div className="flex flex-col items-center gap-2">
-                                <Avatar className="border-2 border-rose-500" size="md">
-                                    <Avatar.Image
-                                        referrerPolicy="no-referrer"
-                                        alt={user.name}
-                                        src={user.image}
-                                    />
-                                    <Avatar.Fallback>{user.name?.charAt(0)}</Avatar.Fallback>
-                                </Avatar>
-
-                                <span className={`hidden sm:block text-xs font-bold max-w-30 truncate transition-colors duration-300 ${isScrolled ? "text-zinc-950" : "text-zinc-300"
-                                    }`}>
-                                    {user.name.toLocaleUpperCase()}
-                                </span>
-                            </div>
-
-                            <button
-                                onClick={handleSignOut}
-                                className="text-rose-600 hover:text-rose-700 text-[10px] md:text-[16px] font-bold px-2 py-1.5 transition-all active:scale-95 flex items-center gap-2 bg-transparent"
-                            >
-                                <FaSignOutAlt className="text-xs opacity-90" />
-                                <span>Logout</span>
-                            </button>
-
-                        </div>
-
-
-                    ) : (
-                        <div className="flex items-center space-x-2 md:space-x-3">
-                            <Link
-                                href="/Access/login"
-                                className={`text-[8px] md:text-xs font-bold px-2 py-1.5 md:px-4 md:py-2.5 rounded-lg md:rounded-xl border transition-all duration-350 ${isScrolled
-                                        ? "border-slate-300 text-zinc-300 hover:bg-slate-100 bg-slate-900"
-                                        : "border-zinc-800 text-zinc-300 hover:bg-zinc-900 hover:text-zinc-100 bg-transparent"
-                                    }`}
-                            >
-                                Sign In
-                            </Link>
-
-                            <Link
-                                href="/Access/register"
-                                className="bg-rose-600 hover:bg-rose-700 text-white md:text-xs text-[8px] px-2 py-1.5 font-bold md:px-4 md:py-2.5 md:rounded-xl rounded-lg transition-all shadow-md shadow-rose-600/10 active:scale-95"
-                            >
-                                Sign Up
-                            </Link>
-                        </div>
-                    )}
-                </div>
+            <Link
+                href="/Access/register"
+                className="bg-rose-600 hover:bg-rose-700 text-white md:text-xs text-[8px] px-2 py-1.5 font-bold md:px-4 md:py-2.5 md:rounded-xl rounded-lg transition-all shadow-md shadow-rose-600/10 active:scale-95"
+            >
+                Sign Up
+            </Link>
+        </div>
+    )}
+</div>
             </div>
         </nav>
     );
