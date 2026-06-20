@@ -39,8 +39,12 @@ const LoginPage = () => {
         }
 
         if (data) {
-            alert("Logged in successfully!");
+            // alert("Logged in successfully!");
             router.push("/");
+            setTimeout(()=> {
+window.location.reload()
+}, 500)
+
         }
     };
 

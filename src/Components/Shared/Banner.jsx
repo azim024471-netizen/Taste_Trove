@@ -8,7 +8,8 @@ import React from 'react';
 
 const Banner = () => {
     return (
-        <div className="relative w-full bg-zinc-950 text-zinc-100 overflow-hidden pt-16 pb-24 border-b border-zinc-900">
+        <div className="relative w-full bg-zinc-950 text-zinc-100 overflow-hidden pt-16 pb-24 
+        border-b border-zinc-900">
 
             <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
 

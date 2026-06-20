@@ -6,7 +6,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { FaUtensils, FaEye, FaEyeSlash } from 'react-icons/fa';
 import React, { useState } from 'react';
 import { authClient } from '@/lib/auth-client';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 
 const SignUpPage = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -43,6 +43,13 @@ const SignUpPage = () => {
         if (data) {
             alert("Account created successfully!");
             router.push("/");
+            // redirect('/')
+            // window.location.reload()
+            // router.refresh()
+
+            setTimeout(()=> {
+window.location.reload()
+}, 500)
         }
     };
 

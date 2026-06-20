@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { redirect, usePathname, useRouter } from "next/navigation";
 import { FaUtensils, FaPlus, FaSignOutAlt } from "react-icons/fa";
 // import { HiUserCircle } from "react-icons/hi";
 import { authClient, useSession } from "@/lib/auth-client";
@@ -20,10 +20,13 @@ export default function Navbar() {
 
 
  const handleSignOut = async () => {
-    // setDropdownOpen(false);
     try {
       await authClient.signOut();
+    //   router.refresh()
       router.push('/');
+      setTimeout(()=> {
+window.location.reload()
+}, 500)
       toast.success('Sign Out Successful!!!', {
         description: "You have been logged out successfully.",
         indicator: true,
