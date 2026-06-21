@@ -1,4 +1,6 @@
+import RecepieCard from '@/Components/Recepies/RecepieCard';
 import RecipeCard from '@/Components/Recepies/RecepieCard';
+import RecepieFilters from '@/Components/Recepies/RecepieFilters';
 import { getRecipe } from '@/lib/api_actions/recipe_api';
 import { FaSearch, FaUtensils } from 'react-icons/fa';
 
@@ -28,7 +30,23 @@ const RecipePage = async () => {
                     </p>
                 </div>
 
-               
+         <RecepieCard></RecepieCard>
+                <RecepieFilters></RecepieFilters>
+
+                {/* <div className="flex flex-wrap justify-center gap-2 mb-10">
+                    {['All', 'Breakfast', 'Lunch', 'Dinner', 'Dessert'].map((cat) => (
+                        <button
+                            key={cat}
+                            className={`text-xs font-bold px-4 py-2 rounded-full border transition-all duration-200
+                                ${cat === 'All'
+                                    ? 'bg-rose-500 text-white border-[#DE4A43]'
+                                    : 'bg-white text-zinc-600 border-zinc-200 hover:border-[#DE4A43] hover:text-[#DE4A43]'
+                                }`}
+                        >
+                            {cat}
+                        </button>
+                    ))}
+                </div> */}
 
                 {recipes && recipes.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

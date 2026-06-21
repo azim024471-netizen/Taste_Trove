@@ -89,6 +89,7 @@ const RecepieCard = ({ recipe }) => {
                     </div>
                 </div>
 
+                {/* Chef name info */}
                 <div className="pt-2 border-t border-zinc-200/40 flex items-center justify-between mb-3 text-[11px] text-zinc-400 font-medium">
                     <span>By {authorName}</span>
                 </div>
