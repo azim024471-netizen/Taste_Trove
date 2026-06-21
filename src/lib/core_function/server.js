@@ -4,19 +4,41 @@ import { auth } from "../auth";
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
 
-export const serverMutation = async(path, data, method='POST')=>{
-    const res =await fetch(`${BASE_URL}${path}`,{
-        method: method,
+// export const serverMutation = async(path, data, method='POST')=>{
+//     const res =await fetch(`${BASE_URL}${path}`,{
+//         method: method,
 
-         headers: {
+//          headers: {
+//             'content-type': 'application/json',    
+//         },
+       
+//         body: JSON.stringify(data),
+//     });
+
+//     return res.json()
+// }
+
+
+
+
+
+export const serverMutation = async (path, data, method = 'POST') => {
+    const currentMethod = method.toUpperCase();
+
+    const res = await fetch(`${BASE_URL}${path}`, {
+        method: currentMethod,
+        headers: {
             'content-type': 'application/json',    
         },
-       
-        body: JSON.stringify(data),
+      
+        ...(currentMethod !== 'DELETE' && data ? { body: JSON.stringify(data) } : {})
     });
 
-    return res.json()
-}
+    return res.json();
+};
+
+
+
 
 
 

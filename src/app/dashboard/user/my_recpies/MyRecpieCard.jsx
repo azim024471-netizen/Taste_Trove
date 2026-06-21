@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { FaClock, FaUsers, FaRegEye, FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { BiGlobe } from 'react-icons/bi';
 import Image from 'next/image';
+import DeleteRecpieModal from '@/Components/DashBoard/MyRecpies/DeleteRecpieModal';
 
 const MyRecipeCard = ({ recipe }) => {
     return (
@@ -48,7 +49,10 @@ const MyRecipeCard = ({ recipe }) => {
                 <div className="flex gap-2.5 pt-4 border-t border-zinc-100 dark:border-zinc-800/80">
                     <Link
                         href={`/recipes/${recipe._id}`}
-                        className="flex-1 flex items-center justify-center gap-1.5 py-2.5 text-xs font-bold border border-zinc-200 dark:border-zinc-700 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 transition active:scale-95"
+                        className="flex-1 flex items-center justify-center gap-1.5 bg-zinc-200
+                        py-2.5 text-xs font-bold border border-zinc-200 dark:border-zinc-700  hover:text-white
+                        rounded-xl hover:bg-zinc-600 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 
+                        transition active:scale-95"
                     >
                         <FaRegEye className="text-sm" />
                         <span>Details</span>
@@ -56,18 +60,24 @@ const MyRecipeCard = ({ recipe }) => {
 
                     <Link
                         href={`/dashboard/edit-recipe/${recipe._id}`}
-                        className="flex-1 flex items-center justify-center gap-1.5 py-2.5 text-xs font-bold bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 rounded-xl hover:bg-amber-100 dark:hover:bg-amber-900/60 transition active:scale-95"
+                        className="flex-1 flex items-center justify-center gap-1.5 py-2.5 text-xs font-bold bg-amber-100
+              dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 rounded-xl hover:bg-amber-600 hover:text-white
+               dark:hover:bg-amber-900/60 transition active:scale-95"
                     >
                         <FaEdit className="text-sm" />
                         <span>Update</span>
                     </Link>
 
-                    <button
+                    {/* <button
                         className="flex-1 flex items-center justify-center gap-1.5 py-2.5 text-xs font-bold bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 rounded-xl hover:bg-rose-100 dark:hover:bg-rose-900/60 transition active:scale-95"
                     >
                         <FaTrashAlt className="text-xs" />
                         <span>Delete</span>
-                    </button>
+                    </button> */}
+
+
+                    <DeleteRecpieModal recipe={recipe} > </DeleteRecpieModal>
+
                 </div>
             </div>
         </div>

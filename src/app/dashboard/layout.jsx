@@ -124,8 +124,7 @@ export default function DashboardLayout({ children }) {
 
       <div className="flex-1 flex flex-col overflow-hidden">
         
-        <header className="h-16 lg:hidden bg-white dark:bg-zinc-900 border-b
-         border-zinc-200 dark:border-zinc-800 px-6 flex items-center justify-between flex-shrink-0">
+        <header className="h-16 lg:hidden bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 px-6 flex items-center justify-between shrink-0">
           <button 
             onClick={() => setSidebarOpen(true)}
             className="lg:hidden text-2xl text-zinc-700 dark:text-zinc-300"
