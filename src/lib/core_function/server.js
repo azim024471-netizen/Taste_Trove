@@ -1,3 +1,6 @@
+import { headers } from "next/headers";
+import { auth } from "../auth";
+
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
 
@@ -16,6 +19,14 @@ export const serverMutation = async(path, data, method='POST')=>{
 }
 
 
+
+export const getUserSession = async()=>{
+    const session = await auth.api.getSession({
+        headers : await headers()
+    })
+    
+    return session || null; 
+}
 
 
 
