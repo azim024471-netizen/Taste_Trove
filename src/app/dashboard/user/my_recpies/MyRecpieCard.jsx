@@ -3,6 +3,7 @@ import { FaClock, FaUsers, FaRegEye, FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { BiGlobe } from 'react-icons/bi';
 import Image from 'next/image';
 import DeleteRecpieModal from '@/Components/DashBoard/MyRecpies/DeleteRecpieModal';
+import UpdateRecpieModal from '@/Components/DashBoard/MyRecpies/UpdateRecpieModal';
 
 const MyRecipeCard = ({ recipe }) => {
     return (
@@ -58,22 +59,8 @@ const MyRecipeCard = ({ recipe }) => {
                         <span>Details</span>
                     </Link>
 
-                    <Link
-                        href={`/dashboard/edit-recipe/${recipe._id}`}
-                        className="flex-1 flex items-center justify-center gap-1.5 py-2.5 text-xs font-bold bg-amber-100
-              dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 rounded-xl hover:bg-amber-600 hover:text-white
-               dark:hover:bg-amber-900/60 transition active:scale-95"
-                    >
-                        <FaEdit className="text-sm" />
-                        <span>Update</span>
-                    </Link>
 
-                    {/* <button
-                        className="flex-1 flex items-center justify-center gap-1.5 py-2.5 text-xs font-bold bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 rounded-xl hover:bg-rose-100 dark:hover:bg-rose-900/60 transition active:scale-95"
-                    >
-                        <FaTrashAlt className="text-xs" />
-                        <span>Delete</span>
-                    </button> */}
+                     <UpdateRecpieModal recipe={recipe}> </UpdateRecpieModal>
 
 
                     <DeleteRecpieModal recipe={recipe} > </DeleteRecpieModal>

@@ -25,6 +25,12 @@ const AddRecipePage = () => {
         const apiKey = process.env.NEXT_PUBLIC_IMG_KEY;
 
         if (!apiKey) {
+              
+             toast.success("Recipe Errd", {
+                    description: `${recipeName} has been removed successfully.`,
+                });
+
+
             toast({
                 title: "Error",
                 description: "ImgBB API Key is missing in .env.local!",
@@ -47,11 +53,11 @@ const AddRecipePage = () => {
 
             if (data.success) {
                 setRecipeImageUrl(data.data.url);
-                toast({
-                    title: "Success",
-                    description: "Recipe image uploaded successfully!",
-                    color: "success"
-                });
+   toast.success("Success", {
+                      description: "Recipe image uploaded successfully!",
+                  });
+
+                
             } else {
                 toast({
                     title: "Upload Failed",
@@ -107,11 +113,15 @@ const AddRecipePage = () => {
             const data = await postRecipe(recipeData);
 
             if (data?.insertedId) {
-                toast({
-                    title: "Success",
+
+                     
+                 toast.success("successfully! ", {
                     description: "Recipe published successfully!",
-                    color: "success"
+                   
                 });
+                
+                
+                ;
 
                 formTarget.reset();
                 setRecipeImageUrl("");
