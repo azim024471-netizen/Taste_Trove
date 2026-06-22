@@ -2,9 +2,14 @@ import React from 'react';
 import Image from 'next/image';
 import { FaHeart, FaRegHeart, FaRegClock, FaGlobe, FaUtensils, FaRegBookmark, FaRegFlag, FaCreditCard } from 'react-icons/fa';
 import { getRecipeById } from '@/lib/api_actions/recipe_api';
+import AddFavouritesBtn from '@/Components/DashBoard/MyFavourites/AddFavouritesBtn';
+import { getUserSession } from '@/lib/core_function/server';
 
-const RecpieDetailsPasg = async ({ params }) => {
+const RecpieDetailsPage = async ({ params }) => {
     const { id } = await params;
+
+    const session = await getUserSession();
+    const user = session?.user
 
 
     const data = await getRecipeById(id)
@@ -125,10 +130,12 @@ const RecpieDetailsPasg = async ({ params }) => {
                                         <span className="text-[10px] font-bold">Like</span>
                                     </button>
 
-                                    <button className="flex flex-col items-center justify-center gap-1 bg-white hover:bg-amber-50/50 border border-orange-100/60 rounded-xl py-2.5 text-zinc-700 hover:text-amber-600 transition-colors">
+                                    {/* <button className="flex flex-col items-center justify-center gap-1 bg-white hover:bg-amber-50/50 border border-orange-100/60 rounded-xl py-2.5 text-zinc-700 hover:text-amber-600 transition-colors">
                                         <FaRegBookmark className="text-base" />
                                         <span className="text-[10px] font-bold">Favorite</span>
-                                    </button>
+                                    </button> */}
+
+                                    <AddFavouritesBtn recipe={data} user={user}> </AddFavouritesBtn>
 
                                     <button className="flex flex-col items-center justify-center gap-1 bg-white hover:bg-red-50/50 border border-orange-100/60 rounded-xl py-2.5 text-zinc-700 hover:text-red-600 transition-colors">
                                         <FaRegFlag className="text-sm" />
@@ -147,4 +154,4 @@ const RecpieDetailsPasg = async ({ params }) => {
     );
 };
 
-export default RecpieDetailsPasg;
+export default RecpieDetailsPage;

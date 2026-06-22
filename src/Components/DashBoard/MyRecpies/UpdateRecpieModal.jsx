@@ -108,7 +108,8 @@ const UpdateRecpieModal = ({ recipe }) => {
                     </Label>
                     <div className={inputContainerStyle}>
                       <FaUtensils className="text-zinc-500 text-sm shrink-0" />
-                      <Input placeholder="Enter Recipe Name" className="bg-transparent border-none outline-none w-full text-zinc-200 placeholder:text-zinc-500" />
+                      <Input placeholder="Enter Recipe Name" 
+                      className="bg-transparent border-none outline-none w-full text-zinc-200 placeholder:text-zinc-500" />
                     </div>
                     <FieldError className="text-red-400 text-xs mt-1" />
                   </TextField>
@@ -161,7 +162,8 @@ const UpdateRecpieModal = ({ recipe }) => {
                     </Label>
                     <div className={inputContainerStyle}>
                       <MdOutlineTimer className="text-zinc-500 text-base shrink-0" />
-                      <Input placeholder="e.g., 30" className="bg-transparent border-none outline-none w-full text-zinc-200 placeholder:text-zinc-500" />
+                      <Input placeholder="e.g., 30"
+                       className="bg-transparent border-none outline-none w-full text-zinc-200 placeholder:text-zinc-500" />
                     </div>
                   </TextField>
                 </div>
@@ -211,7 +213,8 @@ const UpdateRecpieModal = ({ recipe }) => {
                     </Label>
                     <div className={inputContainerStyle}>
                       <FaList className="text-zinc-500 text-xs shrink-0" />
-                      <Input placeholder="e.g., Rice, Sugar, Milk, Cardamom" className="bg-transparent border-none outline-none w-full text-zinc-200 placeholder:text-zinc-500" />
+                      <Input placeholder="e.g., Rice, Sugar, Milk, Cardamom" 
+                      className="bg-transparent border-none outline-none w-full text-zinc-200 placeholder:text-zinc-500" />
                     </div>
                   </TextField>
                 </div>
@@ -220,14 +223,16 @@ const UpdateRecpieModal = ({ recipe }) => {
                   <Label className="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-1.5 block">
                     Instructions
                   </Label>
-                  <div className="p-3 bg-zinc-800/80 border border-zinc-700 rounded-xl focus-within:border-rose-400/60 focus-within:bg-zinc-800 transition-all">
+                  <div className="p-3 bg-zinc-800/80 border border-zinc-700 rounded-xl
+                   focus-within:border-rose-400/60 focus-within:bg-zinc-800 transition-all">
                     <TextArea
                       defaultValue={instructions}
                       required
                       name="instructions"
                       placeholder="Write step by step cooking instructions..."
                       rows={4}
-                      className="w-full text-zinc-200 bg-transparent outline-none border-none placeholder:text-zinc-500 text-sm resize-none"
+                      className="w-full text-zinc-200 bg-transparent outline-none border-none
+                       placeholder:text-zinc-500 text-sm resize-none"
                     />
                   </div>
                 </div>
@@ -236,8 +241,7 @@ const UpdateRecpieModal = ({ recipe }) => {
                   type="submit"
                   disabled={loading}
                   className="w-full h-12 bg-rose-600 hover:bg-rose-100 hover:text-rose-500 text-white font-extrabold text-sm 
-                  rounded-xl shadow-lg transition-all duration-300 mt-4 
-                  flex items-center justify-center gap-2 disabled:opacity-50"
+                  rounded-xl shadow-lg transition-all duration-300 mt-4 flex items-center justify-center gap-2 disabled:opacity-50"
                 >
                   {loading ? "SAVING CHANGES..." : "SAVE CHANGES"} <FaUtensils />
                 </Button>
