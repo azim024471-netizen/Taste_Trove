@@ -38,10 +38,6 @@ export const serverMutation = async (path, data, method = 'POST') => {
 };
 
 
-
-
-
-
 export const getUserSession = async()=>{
     const session = await auth.api.getSession({
         headers : await headers()
@@ -51,10 +47,7 @@ export const getUserSession = async()=>{
 }
 
 
-
 export const serverFetch = async (path) => {
     const res = await fetch(`${BASE_URL}${path}`);
-    return res.json()
-}
-
-
+    return res.json();
+};

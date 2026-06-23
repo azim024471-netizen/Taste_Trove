@@ -25,10 +25,10 @@ const AddRecipePage = () => {
         const apiKey = process.env.NEXT_PUBLIC_IMG_KEY;
 
         if (!apiKey) {
-              
-             toast.success("Recipe Errd", {
-                    description: `${recipeName} has been removed successfully.`,
-                });
+
+            toast.success("Recipe Errd", {
+                description: `${recipeName} has been removed successfully.`,
+            });
 
 
             toast({
@@ -53,11 +53,11 @@ const AddRecipePage = () => {
 
             if (data.success) {
                 setRecipeImageUrl(data.data.url);
-   toast.success("Success", {
-                      description: "Recipe image uploaded successfully!",
-                  });
+                toast.success("Success", {
+                    description: "Recipe image uploaded successfully!",
+                });
 
-                
+
             } else {
                 toast({
                     title: "Upload Failed",
@@ -96,7 +96,7 @@ const AddRecipePage = () => {
 
         const recipeData = {
             ...dataEntries,
-            recipeImage: recipeImageUrl, 
+            recipeImage: recipeImageUrl,
             preparationTime: Number(dataEntries.preparationTime),
             ingredients: dataEntries.ingredients ? dataEntries.ingredients.split(',').map(item => item.trim()) : [],
             authorId: user?.id || "unknown_id",
@@ -109,18 +109,18 @@ const AddRecipePage = () => {
         };
 
         try {
-          
+
             const data = await postRecipe(recipeData);
 
             if (data?.insertedId) {
 
-                     
-                 toast.success("successfully! ", {
+
+                toast.success("successfully! ", {
                     description: "Recipe published successfully!",
-                   
+
                 });
-                
-                
+
+
                 ;
 
                 formTarget.reset();
@@ -188,7 +188,7 @@ const AddRecipePage = () => {
                                             <option value="lunch">Lunch</option>
                                             <option value="dinner">Dinner</option>
                                             <option value="dessert">Desserts & Sweets</option>
-                                            <option value="drinks">Beverages</option>
+                                            <option value="drinks">Drinks</option>
                                         </select>
                                     </div>
                                 </div>
@@ -202,12 +202,12 @@ const AddRecipePage = () => {
                                         <select required name="cuisineType" defaultValue="" className={selectStyle}>
                                             <option value="" disabled hidden>Select Unique Cuisine</option>
                                             <option value="traditional_bengali">Traditional Bengali</option>
-                                            <option value="japanese_zen">Japanese (Sushi/Zen)</option>
-                                            <option value="mediterranean_herbs">Mediterranean</option>
-                                            <option value="turkish_delight">Turkish & Middle Eastern</option>
-                                            <option value="thai_exotic">Thai / Southeast Asian</option>
-                                            <option value="mexican_fiesta">Mexican Tex-Mex</option>
-                                            <option value="french_bistro">French Fine Dining</option>
+                                            <option value="indian">Indian</option>
+                                            <option value="italian">Italian</option>
+                                            <option value="chinese">Chinese</option>
+                                            <option value="american">American</option>
+                                            <option value="japanese">Japanese</option>
+                                            <option value="international">International</option>
                                         </select>
                                     </div>
                                 </div>

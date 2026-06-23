@@ -1,48 +1,66 @@
 'use client';
 
-import { useState } from 'react';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { FaSearch } from 'react-icons/fa';
 
-const RecepieFilters = ({
-  onSearchChange,
-  onCategoryChange,
-  onCuisineChange,
-  onDifficultyChange,
-  onServingsChange,
-}) => {
+const RecepieFilters = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const handleFilterChange = (key, value) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (value) {
+      params.set(key, value);
+    } else {
+      params.delete(key); 
+    }
+
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
+  };
+
   return (
-    <div className="bg-white dark:bg-zinc-900 p-6 rounded-3xl shadow-sm border border-zinc-100 dark:border-zinc-800 mb-10">
-      <div className="flex flex-col lg:flex-row gap-4">
-        
-        {/* Search */}
-        <div className="flex-1 relative">
+    <div className="bg-white dark:bg-zinc-900 p-6 rounded-3xl shadow-sm border border-zinc-100 dark:border-zinc-800 mb-10 space-y-4">
+
+      <div className="w-full block">
+        <div className="relative w-full">
           <div className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400">
             <FaSearch />
           </div>
           <input
             type="text"
             placeholder="Search recipes... (e.g. Biryani, Pizza)"
-            onChange={(e) => onSearchChange(e.target.value)}
-            className="w-full pl-11 pr-4 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:border-[#FF6B35] text-sm"
+            defaultValue={searchParams.get('search') || ''}
+            onChange={(e) => handleFilterChange('search', e.target.value)}
+            className="w-full pl-11 pr-4 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:border-rose-500 text-sm"
           />
         </div>
+      </div>
 
-        {/* Category */}
+
+      <div className="flex flex-col sm:flex-row gap-3 w-full">
+
+
         <select
-          onChange={(e) => onCategoryChange(e.target.value)}
-          className="px-5 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:border-[#FF6B35] text-sm"
+          value={searchParams.get('category') || ''}
+          onChange={(e) => handleFilterChange('category', e.target.value)}
+          className="flex-1 min-w-35 px-5 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200
+           dark:border-zinc-700 rounded-2xl focus:outline-none focus:border-rose-500 text-sm capitalize cursor-pointer"
         >
           <option value="">All Categories</option>
           <option value="breakfast">Breakfast</option>
           <option value="lunch">Lunch</option>
           <option value="dinner">Dinner</option>
-          <option value="dessert">Dessert</option>
+          <option value="dessert">Desserts & Sweets</option>
+          <option value="drinks">Drinks</option>
         </select>
 
-        {/* Cuisine */}
+
         <select
-          onChange={(e) => onCuisineChange(e.target.value)}
-          className="px-5 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:border-[#FF6B35] text-sm"
+          value={searchParams.get('cuisine') || ''}
+          onChange={(e) => handleFilterChange('cuisine', e.target.value)}
+          className="flex-1 min-w-35 px-5 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:border-rose-500 text-sm cursor-pointer"
         >
           <option value="">All Cuisines</option>
           <option value="traditional_bengali">Traditional Bengali</option>
@@ -54,30 +72,20 @@ const RecepieFilters = ({
           <option value="international">International</option>
         </select>
 
-        {/* Difficulty */}
         <select
-          onChange={(e) => onDifficultyChange(e.target.value)}
-          className="px-5 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:border-[#FF6B35] text-sm"
-        >
-          <option value="">All Difficulty</option>
-          <option value="easy">Easy</option>
-          <option value="medium">Medium</option>
-          <option value="hard">Hard</option>
-        </select>
-
-        {/* Servings */}
-        <select
-          onChange={(e) => onServingsChange(e.target.value)}
-          className="px-5 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:border-[#FF6B35] text-sm"
+          value={searchParams.get('servings') || ''}
+          onChange={(e) => handleFilterChange('servings', e.target.value)}
+          className="flex-1 min-w-35 px-5 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:border-rose-500 text-sm cursor-pointer"
         >
           <option value="">All Servings</option>
-          <option value="1_people">1 Person</option>
+          <option value="1_person">1 Person</option>
           <option value="2_people">2 People</option>
-          <option value="3_people">3 People</option>
           <option value="4_people">4 People</option>
-          <option value="5_people">5+ People</option>
+          <option value="6_plus">6+ People</option>
         </select>
+
       </div>
+
     </div>
   );
 };

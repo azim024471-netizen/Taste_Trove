@@ -1,22 +1,23 @@
-import RecepieCard from '@/Components/Recepies/RecepieCard';
 import RecipeCard from '@/Components/Recepies/RecepieCard';
 import RecepieFilters from '@/Components/Recepies/RecepieFilters';
 import { getRecipe } from '@/lib/api_actions/recipe_api';
-import { FaSearch, FaUtensils } from 'react-icons/fa';
+import { FaUtensils } from 'react-icons/fa';
+import Link from 'next/link';
 
-const RecipePage = async () => {
-    const recipes = await getRecipe();
-
+const RecipePage = async ({ searchParams }) => {
+    const resolvedParams = await searchParams;
+    
+    const recipes = await getRecipe(resolvedParams);
     const totalRecipes = recipes?.length ?? 0;
+    
 
     return (
         <div className="min-h-screen bg-[#FDF6F0] dark:bg-zinc-950 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
 
                 <div className="mb-10 text-center">
-                    <span className="inline-flex bg-[#DE4A43]/10 text-rose-600 items-center text-2xl font-bold   tracking-widest px-4 py-1.5 
-                    rounded-full mb-4">
-                        <FaUtensils></FaUtensils> <span className='text-black ml-2'>Taste</span><span className='text-rose-500'>Trove</span>
+                    <span className="inline-flex bg-[#DE4A43]/10 text-rose-600 items-center text-2xl font-bold tracking-widest px-4 py-1.5 rounded-full mb-4">
+                        <FaUtensils /> <span className='text-zinc-900 dark:text-white ml-2 mr-1'>Taste</span><span className='text-rose-500'>Trove</span>
                     </span>
                     <h1 className="text-4xl md:text-5xl font-black text-zinc-900 dark:text-white tracking-tight">
                         Explore Recipes
@@ -24,30 +25,14 @@ const RecipePage = async () => {
                     <p className="mt-3 text-zinc-500 dark:text-zinc-400 text-base max-w-xl mx-auto">
                         Discover delicious recipes shared by our community
                     </p>
-
                     <p className="mt-2 text-sm text-rose-500 font-medium">
                         {totalRecipes} recipes available
                     </p>
                 </div>
 
-         <RecepieCard></RecepieCard>
-                <RecepieFilters></RecepieFilters>
+                <RecepieFilters />
 
-                {/* <div className="flex flex-wrap justify-center gap-2 mb-10">
-                    {['All', 'Breakfast', 'Lunch', 'Dinner', 'Dessert'].map((cat) => (
-                        <button
-                            key={cat}
-                            className={`text-xs font-bold px-4 py-2 rounded-full border transition-all duration-200
-                                ${cat === 'All'
-                                    ? 'bg-rose-500 text-white border-[#DE4A43]'
-                                    : 'bg-white text-zinc-600 border-zinc-200 hover:border-[#DE4A43] hover:text-[#DE4A43]'
-                                }`}
-                        >
-                            {cat}
-                        </button>
-                    ))}
-                </div> */}
-
+              
                 {recipes && recipes.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         {recipes.map((recipe) => (
@@ -62,7 +47,7 @@ const RecipePage = async () => {
                             </div>
                         </div>
                         <p className="text-xl font-bold text-zinc-600 dark:text-zinc-300">No recipes found</p>
-                        <p className="text-zinc-400 mt-2 text-sm">Be the first to share your recipe!</p>
+                        <p className="text-zinc-400 mt-2 text-sm">Try adjusting your search filters or be the first to share one!</p>
                     </div>
                 )}
             </div>

@@ -3,10 +3,15 @@ import { serverFetch } from "../core_function/server"
  
  
  
- 
- export const getRecipe= async ()=>{
-    return serverFetch("/api/recipes")
-  }
+export const getRecipe = async (params) => {
+    const queryString = params ? new URLSearchParams(params).toString() : '';
+    
+    return serverFetch(`/api/recipes?${queryString}`);
+};
+
+
+
+
 
 
   export const getRecipeById = async (recipeId)=>{
