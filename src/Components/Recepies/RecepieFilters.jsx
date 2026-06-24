@@ -17,8 +17,15 @@ const RecepieFilters = () => {
       params.delete(key); 
     }
 
+     params.set("page", "1");
+
+
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
+ 
+
+
+
 
   return (
     <div className="bg-white dark:bg-zinc-900 p-6 rounded-3xl shadow-sm border border-zinc-100 dark:border-zinc-800 mb-10 space-y-4">

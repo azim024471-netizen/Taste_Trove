@@ -4,6 +4,7 @@ import { FaHeart, FaRegHeart, FaRegClock, FaGlobe, FaUtensils, FaRegBookmark, Fa
 import { getRecipeById } from '@/lib/api_actions/recipe_api';
 import AddFavouritesBtn from '@/Components/DashBoard/MyFavourites/AddFavouritesBtn';
 import { getUserSession } from '@/lib/core_function/server';
+import ReportModal from '@/Components/Recepies/ReportModal';
 
 const RecpieDetailsPage = async ({ params }) => {
     const { id } = await params;
@@ -18,8 +19,8 @@ const RecpieDetailsPage = async ({ params }) => {
         return <div className="min-h-screen bg-white flex items-center justify-center text-zinc-500">Recipe not found.</div>;
     }
 
-    const { recipeName,category, cuisineType, preparationTime,   difficultyLevel,   ingredients, 
-         servings, instructions,  recipeImage,  authorName, likesCount,} = data;
+    const { recipeName, category, cuisineType, preparationTime, difficultyLevel, ingredients,
+        servings, instructions, recipeImage, authorName, likesCount, } = data;
 
     const formattedCuisine = cuisineType?.replace(/_/g, ' ');
     const formattedServings = servings?.replace('_people', ' People');
@@ -27,20 +28,20 @@ const RecpieDetailsPage = async ({ params }) => {
     return (
         <div className="min-h-screen bg-white text-zinc-900 antialiased py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-6xl mx-auto">
-                
+
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-                    
+
                     <div className="lg:col-span-7 xl:col-span-8 flex flex-col gap-6">
-                        
+
                         <div className="relative w-full aspect-16/10 sm:aspect-video rounded-3xl overflow-hidden bg-zinc-100 shadow-sm">
                             <Image
-                                src={recipeImage }
+                                src={recipeImage}
                                 alt={recipeName}
                                 fill
                                 priority
                                 className="object-cover "
                             />
-                          
+
                             <span className="absolute top-4 left-4 bg-rose-500 text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">
                                 {category}
                             </span>
@@ -75,7 +76,7 @@ const RecpieDetailsPage = async ({ params }) => {
                     <div className="lg:col-span-5 xl:col-span-4">
                         <div className="bg-[#FFF8F5] border border-orange-100/40 p-6 rounded-3xl
                           sticky top-6 flex flex-col gap-5">
-                            
+
                             <div className="flex items-center justify-between">
                                 <span className="text-xs font-bold uppercase tracking-wider text-rose-500 flex items-center gap-1">
                                     <FaGlobe /> {formattedCuisine}
@@ -89,7 +90,7 @@ const RecpieDetailsPage = async ({ params }) => {
                             <div>
                                 <h1 className="text-2xl font-extrabold text-zinc-900 tracking-tight leading-tight mb-1">
                                     {recipeName}
-                                premiere</h1>
+                                    premiere</h1>
                                 <p className="text-xs text-zinc-400 font-medium">By Chef: <span className="text-zinc-700 font-bold">{authorName}</span></p>
                             </div>
 
@@ -117,14 +118,14 @@ const RecpieDetailsPage = async ({ params }) => {
                             </div>
 
                             <div className="flex flex-col gap-2.5 pt-2 border-t border-orange-100/30">
-                                
+
                                 <button className="w-full bg-rose-500 hover:bg-zinc-800 text-white font-bold text-sm py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-sm active:scale-98">
                                     <FaCreditCard className="text-xs" />
-                                    <span>Purchase Recipe (Stripe)</span>
+                                    <span>Purchase Recipe </span>
                                 </button>
 
                                 <div className="grid grid-cols-3 gap-2">
-                                    
+
                                     <button className="flex flex-col items-center justify-center gap-1 bg-white hover:bg-rose-50/50 border border-orange-100/60 rounded-xl py-2.5 text-zinc-700 hover:text-rose-500 transition-colors">
                                         <FaRegHeart className="text-base" />
                                         <span className="text-[10px] font-bold">Like</span>
@@ -137,10 +138,14 @@ const RecpieDetailsPage = async ({ params }) => {
 
                                     <AddFavouritesBtn recipe={data} user={user}> </AddFavouritesBtn>
 
+                                    {/* 
                                     <button className="flex flex-col items-center justify-center gap-1 bg-white hover:bg-red-50/50 border border-orange-100/60 rounded-xl py-2.5 text-zinc-700 hover:text-red-600 transition-colors">
                                         <FaRegFlag className="text-sm" />
                                         <span className="text-[10px] font-bold">Report</span>
-                                    </button>
+                                    </button> */}
+
+                                    <ReportModal recipe={data} user={user} ></ReportModal>
+
 
                                 </div>
                             </div>

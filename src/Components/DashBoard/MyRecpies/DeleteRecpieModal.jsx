@@ -6,7 +6,7 @@ import { AlertDialog, Button, toast } from "@heroui/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { FaTrash } from "react-icons/fa";
+import { FaRegFlag, FaTrash } from "react-icons/fa";
 
 const DeleteRecpieModal = ({ recipe }) => {
     const { _id, recipeName } = recipe;
@@ -46,12 +46,25 @@ const DeleteRecpieModal = ({ recipe }) => {
     return (
         <AlertDialog>
             <Button
-         className="flex-1 bg-red-50 hover:bg-rose-600 text-red-600 hover:text-white border
-          border-red-200 text-xs rounded-xl transition-all"
+            className="flex flex-col items-center justify-center gap-1 bg-white hover:bg-red-50/50 border border-orange-100/60 rounded-xl py-2.5 text-zinc-700 hover:text-red-600 transition-colors"
             >
-                <FaTrash />
-                Delete
+                <FaRegFlag className="text-sm" />
+                <span className="text-[10px] font-bold">Report</span>
             </Button>
+
+
+            {/* <button 
+    className="flex flex-col items-center justify-center gap-1 bg-white hover:bg-red-50/50 border border-orange-100/60 rounded-xl py-2.5 text-zinc-700 hover:text-red-600 transition-colors">
+                <FaRegFlag className="text-sm" />
+                <span className="text-[10px] font-bold">Report</span>
+            </button> */}
+
+
+
+
+
+
+
 
             <AlertDialog.Backdrop
                 variant="blur"
