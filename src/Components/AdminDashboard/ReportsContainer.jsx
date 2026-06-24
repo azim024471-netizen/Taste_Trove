@@ -1,20 +1,61 @@
 "use client";
 
 import React from 'react';
-import { Button } from "@heroui/react";
+import { Button, toast } from "@heroui/react";
 import Image from 'next/image'; 
 import Link from 'next/link';   
 import {FaTrashAlt,  FaCheck, FaExclamationTriangle, FaBug, FaCopyright, FaInfoCircle} from 'react-icons/fa';
+import { deleteReportAndRecipe, dismissReport } from '@/lib/server_actions/reports';
+import { useRouter } from 'next/navigation';
 
 export default function ReportsContainer({ initialReports }) {
+   const router = useRouter()
+  const handleRemoveRecipe = async (recipeId, reportId) => {
+    
+        const res = await deleteReportAndRecipe(reportId, recipeId);
 
-  const handleRemoveRecipe = (recipeId, reportId) => {
-    console.log("Remove Recipe:", recipeId, "Report:", reportId);
-  };
+        if (res?.success) {
+            toast.success('Recipe Removed', {
+                description: res.message || 'The recipe and report have been deleted successfully.',
 
-  const handleDismissReport = (reportId) => {
-    console.log("Dismiss Report:", reportId);
-  };
+                
+            });
+  router.refresh()
+         
+        } else {
+            toast.warning('Removal Failed', {
+                description: res?.message || 'Could not remove the recipe.',
+            });
+        }
+     
+};
+
+
+
+
+const handleDismissReport = async (reportId) => {
+    
+        const res = await dismissReport(reportId);
+
+        if (res?.success) {
+            toast.success('Report Dismissed', {
+                description: res.message || 'The report has been dismissed, recipe is safe.',
+            });
+
+              router.refresh()
+
+
+        } else {
+            toast.warning('Dismiss Failed', {
+                description: res?.message || 'Could not dismiss the report.',
+            });
+        }
+    
+};
+
+
+
+
 
   const getReasonStyles = (reason) => {
     const normalizedReason = reason?.toLowerCase() || "";
