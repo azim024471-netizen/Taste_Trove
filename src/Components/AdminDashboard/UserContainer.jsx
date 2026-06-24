@@ -8,21 +8,21 @@ import React, { useState } from 'react';
 import { Button, toast } from "@heroui/react";
 import Image from 'next/image';
 import {
-    // FaBan,
-    // FaCheckCircle,
+    FaBan,
     FaUser,
     FaUserShield,
     FaCrown,
     FaStar,
     FaRegClock,
-    FaRegCheckCircle
+    FaCheckCircle
 } from 'react-icons/fa';
-import { FaBan } from 'react-icons/fa6';
+import { toggleUserBanAction } from '@/lib/server_actions/user';
 
 export default function UserContainer({ initialUsers }) {
-    //   const [users, setUsers] = useState(initialUsers);
 
     const users = initialUsers;
+
+
     const getRoleBadge = (role) => {
         if (role === 'admin') {
             return {
@@ -50,11 +50,22 @@ export default function UserContainer({ initialUsers }) {
         };
     };
 
-    const handleToggleBan = (userId, currentStatus) => {
-        toast.info(currentStatus ? 'Unbanning user...' : 'Banning user...', {
-            description: `User ID: ${userId}`
-        });
-    };
+// 
+
+
+const handleToggleBan = async (userId, currentStatus) => {
+    const res = await toggleUserBanAction(userId, currentStatus);
+
+    if (res.success) {
+        toast.success(currentStatus ? 'User unbanned successfully!' : 'User banned successfully!');
+    } else {
+        if (res.error === "You cannot ban yourself" || res.error?.includes("ban yourself")) {
+            toast.danger("Hey! You cannot ban your own Admin account.");
+        } else {
+            toast.danger(res.error || 'Failed to update user status.');
+        }
+    }
+};
 
     return (
         <>
@@ -141,13 +152,13 @@ export default function UserContainer({ initialUsers }) {
                                                     size="sm"
                                                     variant="flat"
                                                     onPress={() => handleToggleBan(user.id || user._id, user.banned)}
-                                                    startContent={user.banned ? <FaRegCheckCircle size={13} className="text-green-600" /> : <FaBan size={12} className="text-red-500" />}
                                                     className={`font-bold rounded-xl w-25 border transition-all duration-200 shadow-sm ${user.banned
                                                             ? "bg-green-50/80 text-green-600 border-green-200/60 hover:bg-green-100 hover:text-green-700"
                                                             : "bg-red-50/80 text-red-600 border-red-200/60 hover:bg-red-100 hover:text-red-700"
                                                         }`}
                                                 >
-                                                    {user.banned ? 'Unban' : 'Ban User'}
+ 
+                                                    {user.banned ? <> <FaCheckCircle size={12} className="text-green-600" /> <span>Unban</span></> : <> <FaBan size={12} className="text-red-500" />  <span>Ban User</span></>}
                                                 </Button>
                                             </div>
                                         </td>
@@ -210,7 +221,6 @@ export default function UserContainer({ initialUsers }) {
                                 size="sm"
                                 variant="solid"
                                 color={user.banned ? "success" : "danger"}
-                                startContent={user.banned ? <FaRegCheckCircle size={12} /> : <FaBan size={12} />}
                                 onPress={() => handleToggleBan(user.id || user._id, user.banned)}
                                 className={`w-full font-bold text-xs rounded-xl ${user.banned ? 'bg-green-600 text-white' : 'bg-red-600 text-white'}`}
                             >
@@ -224,3 +234,4 @@ export default function UserContainer({ initialUsers }) {
     );
 }
 
+                                              
