@@ -26,9 +26,9 @@ const ReportModal = ({ recipe, user }) => {
         const form = e.target;
 
         const reportData = {
-            userId: user?.id,
-            userName: user?.name,
-            userEmail: user?.email,
+            repotertedBy: user?.id,
+            reporterName: user?.name,
+            reporterEmail: user?.email,
 
             recipeId: recipe?._id,
             recipeName: recipe?.recipeName,
@@ -77,8 +77,6 @@ const ReportModal = ({ recipe, user }) => {
 
 
 
-
-
             <Button
                 variant="light"
                 className="flex flex-col items-center  justify-center gap-1 bg-white hover:bg-red-50/50 border
@@ -98,9 +96,7 @@ const ReportModal = ({ recipe, user }) => {
                                 <FaFlag />
                             </Modal.Icon>
 
-                            <Modal.Heading>
-                                Report Recipe
-                            </Modal.Heading>
+                            <Modal.Heading>          Report Recipe   </Modal.Heading>
 
                             <p className="mt-2 text-sm text-zinc-500">
                                 Report this recipe if it contains misleading,
@@ -128,24 +124,29 @@ const ReportModal = ({ recipe, user }) => {
                                     onSubmit={handleReport}
                                     className="space-y-4"
                                 >
+                                    
+                                   
+                                    <TextField className="w-full">
+  <Label>
+    Why are you reporting this recipe?
+  </Label>
 
-
-                                    <TextField
-                                        className="w-full"
-                                        name="reason"
-                                        variant="secondary"
-                                    >
-                                        <Label>
-                                            Why are you reporting this recipe?
-                                        </Label>
-
-                                        <TextArea
-                                            rows={4}
-                                            required
-                                            placeholder="Spam, fake recipe, offensive content..."
-                                            className="min-h-28"
-                                        />
-                                    </TextField>
+  <select
+    name="reason"
+    required
+    className=" w-full h-12rounded-xl border border-orange-200 bg-[#FFF8F5] px-4 text-sm  text-zinc-700
+      outline-none
+      focus:border-rose-400
+      focus:ring-2
+      focus:ring-rose-100
+    "
+  >
+    <option value="">Select a reason</option>
+    <option value="Spam"> Spam</option>
+    <option value="Offensive Content"> Offensive Content</option>
+    <option value="Copyright Issue">Copyright Issue</option>
+  </select>
+</TextField>
 
 
 
@@ -155,10 +156,7 @@ const ReportModal = ({ recipe, user }) => {
                         </Modal.Body>
 
                         <Modal.Footer>
-                            <Button
-                                slot="close"
-                                variant="secondary"
-                            >
+                            <Button slot="close" variant="secondary" >
                                 Cancel
                             </Button>
 
