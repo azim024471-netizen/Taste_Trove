@@ -3,13 +3,19 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { HiHome, HiOutlineBookOpen, HiOutlineFlag, HiOutlineHeart, HiOutlinePlusCircle, HiOutlineShoppingBag,
-     HiOutlineUser, HiOutlineUsers } from 'react-icons/hi2';
-import {  FaUtensils,  FaBars, } from 'react-icons/fa';
+import { 
+  HiHome, 
+  HiOutlineBookOpen, 
+  HiOutlineFlag, 
+  HiOutlineHeart, 
+  HiOutlinePlusCircle, 
+  HiOutlineShoppingBag,
+  HiOutlineUser, 
+  HiOutlineUsers 
+} from 'react-icons/hi2';
+import { FaUtensils, FaBars } from 'react-icons/fa';
 import { HiOutlineCreditCard } from 'react-icons/hi';
 import { authClient } from '@/lib/auth-client';
-
-
 
 const adminMenu = [
   {
@@ -18,20 +24,20 @@ const adminMenu = [
     icon: HiHome,
   },
   {
-      name: "Manage Users",
-      href: "/dashboard/admin/manage-users",
-      icon: HiOutlineUsers,
-    },
-    {
-        name: "Manage Recipes",
-        href: "/dashboard/admin/manage-recipes",
-        icon: HiOutlineBookOpen,
-    },
-    {
-      name: "Transactions",
-      href: "/dashboard/admin/transactions",
-      icon: HiOutlineCreditCard,
-    },
+    name: "Manage Users",
+    href: "/dashboard/admin/manage-users",
+    icon: HiOutlineUsers,
+  },
+  {
+    name: "Manage Recipes",
+    href: "/dashboard/admin/manage-recipes",
+    icon: HiOutlineBookOpen,
+  },
+  {
+    name: "Transactions",
+    href: "/dashboard/admin/transactions",
+    icon: HiOutlineCreditCard,
+  },
   {
     name: "Reports",
     href: "/dashboard/admin/reports",
@@ -39,10 +45,7 @@ const adminMenu = [
   },
 ];
 
-
-
-
-const userMenu= [
+const userMenu = [
   {
     name: "Overview",
     href: "/dashboard/user",
@@ -75,38 +78,23 @@ const userMenu= [
   },
 ];
 
-
-
 export default function DashboardLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
+  const { data: session, isPending } = authClient.useSession();
 
-    const { data: session, isPending } = authClient.useSession();
-
-    
   const user = session?.user;
-  const userRole = user?.role
+  const userRole = user?.role;
 
-  const dashboardMenus =
-  userRole === "admin"
-    ? adminMenu
-    : userMenu;
+  const dashboardMenus = userRole === "admin" ? adminMenu : userMenu;
 
-
-
-
-  console.log('user from dashboard' ,  user, isPending)
+  console.log('user from dashboard', user, isPending);
 
   return (
     <div className="flex h-screen overflow-hidden bg-[#FDF6F0] dark:bg-zinc-950">
-      
-      <aside className={`fixed lg:static inset-y-0 left-0 z-50 w-72 bg-white dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-800 
-        transform transition-transform duration-300 lg:translate-x-0 overflow-hidden shrink-0
-        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-
+      <aside className={`fixed lg:static inset-y-0 left-0 z-50 w-72 bg-white dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-800 transform transition-transform duration-300 lg:translate-x-0 overflow-hidden shrink-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="h-full flex flex-col">
-          <div className="p-6 border-b border-zinc-200 dark:border-zinc-800 flex items-center gap-3 
-          shrink-0">
+          <div className="p-6 border-b border-zinc-200 dark:border-zinc-800 flex items-center gap-3 shrink-0">
             <div className="w-10 h-10 bg-rose-500 rounded-2xl flex items-center justify-center">
               <FaUtensils className="text-white text-2xl" />
             </div>
@@ -115,7 +103,6 @@ export default function DashboardLayout({ children }) {
 
           <nav className="flex-1 p-6 overflow-y-auto">
             <p className="text-xs uppercase tracking-widest text-zinc-500 mb-4">MENU</p>
-            
             <div className="space-y-1">
               {dashboardMenus.map((item) => {
                 const isActive = pathname === item.href;
@@ -141,7 +128,6 @@ export default function DashboardLayout({ children }) {
       </aside>
 
       <div className="flex-1 flex flex-col overflow-hidden">
-        
         <header className="h-16 lg:hidden bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 px-6 flex items-center justify-between shrink-0">
           <button 
             onClick={() => setSidebarOpen(true)}
@@ -149,7 +135,6 @@ export default function DashboardLayout({ children }) {
           >
             <FaBars />
           </button>
-
           <div className="lg:hidden text-sm font-medium text-zinc-600 dark:text-zinc-400">
             Welcome back
           </div>
