@@ -59,9 +59,7 @@ const MyRecipeCard = ({ recipe }) => {
                         <span>Details</span>
                     </Link>
 
-
                      <UpdateRecpieModal recipe={recipe}> </UpdateRecpieModal>
-
 
                     <DeleteRecpieModal recipe={recipe} > </DeleteRecpieModal>
 

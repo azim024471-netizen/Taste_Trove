@@ -1,8 +1,7 @@
 'use server'
 
 import { headers } from "next/headers";
-// import { auth } from "../auth";
-import { revalidatePath } from "next/cache"; // 👈 এই ইম্পোর্টটি অবশ্যই লাগবে
+import { revalidatePath } from "next/cache"; 
 import { auth } from "../auth";
 
 export const toggleUserBanAction = async (userId, isBanned) => {
@@ -19,7 +18,6 @@ export const toggleUserBanAction = async (userId, isBanned) => {
             });
         }
 
-        // 🔄 ডাটা রিভ্যালিডেট হবে যেন পেজ রিফ্রেশ ছাড়াই টেবিল আপডেট হয়
         revalidatePath("/dashboard/admin/users"); 
 
         return { success: true };

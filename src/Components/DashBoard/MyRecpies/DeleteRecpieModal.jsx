@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaRegFlag, FaTrash } from "react-icons/fa";
 
-const DeleteRecpieModal = ({ recipe }) => {
+const DeleteRecpieModal = ({ recipe ,isAdmin = false }) => {
     const { _id, recipeName } = recipe;
 
     const router = useRouter();
@@ -45,26 +45,23 @@ const DeleteRecpieModal = ({ recipe }) => {
 
     return (
         <AlertDialog>
-            <Button
-            className="flex flex-col items-center justify-center gap-1 bg-white hover:bg-red-50/50 border border-orange-100/60 rounded-xl py-2.5 text-zinc-700 hover:text-red-600 transition-colors"
-            >
-                <FaRegFlag className="text-sm" />
-                <span className="text-[10px] font-bold">Report</span>
-            </Button>
-
-
-            {/* <button 
-    className="flex flex-col items-center justify-center gap-1 bg-white hover:bg-red-50/50 border border-orange-100/60 rounded-xl py-2.5 text-zinc-700 hover:text-red-600 transition-colors">
-                <FaRegFlag className="text-sm" />
-                <span className="text-[10px] font-bold">Report</span>
-            </button> */}
-
-
-
-
-
-
-
+            {isAdmin ? (
+                <Button
+                    className="font-bold rounded-xl text-xs px-3 h-8 min-w-0 transition active:scale-95 flex items-center justify-center gap-1
+                        bg-red-600 text-white hover:bg-red-700
+                        md:bg-red-50 md:text-red-600 md:border md:border-red-200 md:hover:bg-red-100 md:shadow-sm"
+                >
+                    <FaTrash size={12} />
+                    <span className="hidden md:inline">Delete</span> {/* 📱 মোবাইলে হাইড, 🖥️ ডেস্কটপে শো */}
+                </Button>
+            ) : (
+                <Button
+                    className="flex flex-col items-center justify-center gap-1 bg-white hover:bg-red-50/50 border border-orange-100/60 rounded-xl py-2.5 text-red-600 transition-colors"
+                >
+                    <FaTrash className="text-sm" />
+                    <span className="text-[10px] font-bold">Delete</span>
+                </Button>
+            )}
 
             <AlertDialog.Backdrop
                 variant="blur"
@@ -131,3 +128,6 @@ const DeleteRecpieModal = ({ recipe }) => {
 };
 
 export default DeleteRecpieModal;
+
+
+

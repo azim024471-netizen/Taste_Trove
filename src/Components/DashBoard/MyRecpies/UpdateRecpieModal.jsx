@@ -6,7 +6,7 @@ import { FaEdit, FaUtensils, FaGlobe, FaUsers, FaList } from "react-icons/fa";
 import { CgEditContrast } from "react-icons/cg";
 import { useRouter } from "next/navigation";
 import { updateRecpieFunction } from "@/lib/server_actions/recipes";
-const UpdateRecpieModal = ({ recipe }) => {
+const UpdateRecpieModal = ({ recipe , isAdmin = false}) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -62,12 +62,27 @@ const UpdateRecpieModal = ({ recipe }) => {
   return (
     <Modal isOpen={isOpen} onOpenChange={setIsOpen}>
 
-      <Button onClick={() => setIsOpen(true)}
-      className="flex-1 flex items-center justify-center gap-1.5 py-2.5 text-xs font-bold bg-amber-100
-              dark:bg-rose-950/40 text-amber-600 dark:text-rose-400 rounded-xl hover:bg-amber-600 hover:text-white
-               dark:hover:bg-rose-900/60 transition active:scale-95">
-        <FaEdit className="text-xs" /> Edit Recipe
-      </Button>
+ {isAdmin ? (
+        <Button
+          onClick={() => setIsOpen(true)}
+          className="font-bold rounded-xl text-xs px-3 h-8 min-w-0 transition active:scale-95 flex items-center justify-center gap-1
+            bg-blue-600 text-white hover:bg-blue-700 
+            md:bg-blue-50 md:text-blue-600 md:border md:border-blue-200 md:hover:bg-blue-100 md:shadow-sm"
+        >
+          <FaEdit size={13} />
+          <span className="hidden md:inline">Edit</span> 
+        </Button>
+      ) : (
+        <Button 
+          onClick={() => setIsOpen(true)}
+          className="flex-1 flex items-center justify-center gap-1.5 py-2.5 text-xs font-bold bg-amber-100
+            dark:bg-rose-950/40 text-amber-600 dark:text-rose-400 rounded-xl hover:bg-amber-600 hover:text-white
+            dark:hover:bg-rose-900/60 transition active:scale-95"
+        >
+          <FaEdit className="text-xs" /> Edit Recipe
+        </Button>
+      )}
+
 
       <Modal.Backdrop
         variant="blur"
@@ -255,4 +270,7 @@ const UpdateRecpieModal = ({ recipe }) => {
 };
 
 export default UpdateRecpieModal;
+
+
+
 
