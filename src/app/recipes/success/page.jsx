@@ -14,17 +14,33 @@ const RecipeSuccessPage = async ({ searchParams }) => {
   const session = await stripe.checkout.sessions.retrieve(sessionId)
   if (session.payment_status !== 'paid') redirect('/recipes')
 
-  const { userId, userEmail, userName, recipeId, recipeName } = session.metadata
-
-   
-  const purchasedData ={
-      userId, 
-      userEmail, 
-      userName,
-      recipeId, 
-      recipeName,
-  }
   
+const { 
+  userId, 
+  userEmail, 
+  userName, 
+  recipeId, 
+  recipeName, 
+  category, 
+  preparationTime, 
+  recipeImage 
+} = session.metadata
+
+
+const purchasedData = {
+  userId, 
+  userEmail, 
+  userName,
+  recipeId, 
+  recipeName,
+  category: category ?? "lunch",
+  preparationTime: Number(preparationTime) ?? 0,
+  recipeImage: recipeImage ?? "",
+}
+
+
+console.log(purchasedData)
+
   const paymentData = {
     type: 'recipe',
     userId, 
@@ -38,9 +54,9 @@ const RecipeSuccessPage = async ({ searchParams }) => {
     stripeSessionId: sessionId,
   }
   
-  keepPurchesData(purchasedData)
-
+ console.log(paymentData)
   keepPaymentData(paymentData)
+   keepPurchesData(purchasedData)
 
 
   return (

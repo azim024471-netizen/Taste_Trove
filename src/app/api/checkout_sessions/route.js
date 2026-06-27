@@ -13,7 +13,19 @@ export async function POST(req) {
     const headersList = await headers()
     const origin = headersList.get('origin')
     const body = await req.json()
-    const { type, planType, userId, userEmail, userName, recipeId, recipeName } = body
+    
+    const { 
+      type, 
+      planType, 
+      userId, 
+      userEmail, 
+      userName, 
+      recipeId, 
+      recipeName,
+      recipeImage,     
+      category,        
+      preparationTime  
+    } = body
 
     let priceId, successUrl, metadata, mode
 
@@ -23,10 +35,22 @@ export async function POST(req) {
       metadata = { type: 'premium', planType, userId, userEmail, userName }
       successUrl = `${origin}/get_premium/success?session_id={CHECKOUT_SESSION_ID}`
     } 
-    else if(type === 'recipe') {
+    else if (type === 'recipe') {
       priceId = PLAN_PRICES.recipe
       mode = 'payment'
-      metadata = { type: 'recipe', recipeId, recipeName, userId, userEmail, userName }
+      
+      metadata = { 
+        type: 'recipe', 
+        recipeId, 
+        recipeName, 
+        userId, 
+        userEmail, 
+        userName,
+        recipeImage: recipeImage ?? "",
+        category,
+        preparationTime: String(preparationTime ?? 0) 
+      }
+
       successUrl = `${origin}/recipes/success?session_id={CHECKOUT_SESSION_ID}`
     } else {
       return NextResponse.json({ error: 'Invalid type' }, { status: 400 })
@@ -40,7 +64,7 @@ export async function POST(req) {
       customer_email: userEmail,
       metadata,
       success_url: successUrl,
-      cancel_url: `${origin}/get_premium`,
+      cancel_url: type === 'recipe' ? `${origin}/recipes/${recipeId}` : `${origin}/get_premium`,
     })
 
     return NextResponse.json({ url: session.url })

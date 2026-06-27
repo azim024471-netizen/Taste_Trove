@@ -19,6 +19,9 @@ const RecipePurchaseBtn = ({ recipe, user }) => {
           type: 'recipe',
           recipeId: recipe?._id,
           recipeName: recipe?.recipeName,
+          recipeImage: recipe?.recipeImage || "",     
+          category: recipe?.category ,       
+          preparationTime: recipe?.preparationTime,
           userId: user?.id,
           userEmail: user?.email,
           userName: user?.name,
@@ -46,3 +49,5 @@ const RecipePurchaseBtn = ({ recipe, user }) => {
 }
 
 export default RecipePurchaseBtn
+
+

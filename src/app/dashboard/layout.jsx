@@ -88,7 +88,7 @@ export default function DashboardLayout({ children }) {
 
   const dashboardMenus = userRole === "admin" ? adminMenu : userMenu;
 
-  console.log('user from dashboard', user, isPending);
+  // console.log('user from dashboard', user, isPending);
 
   return (
     <div className="flex h-screen overflow-hidden bg-[#FDF6F0] dark:bg-zinc-950">

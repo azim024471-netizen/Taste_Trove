@@ -21,3 +21,8 @@ export const getRecipe = async (params) => {
   export const getRecipeByUserId = async(userID)=>{
     return serverFetch(`/api/recipes/user/${userID}`)
   }
+
+
+  export const purchasedRecipeById = async (userId)=>{
+    return serverFetch(`/api/purchased/${userId}`)
+  }
