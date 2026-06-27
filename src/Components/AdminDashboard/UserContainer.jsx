@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState } from 'react';
@@ -11,14 +10,14 @@ import {
     FaCrown,
     FaStar,
     FaRegClock,
-    FaCheckCircle
+    FaCheckCircle,
+    FaGem
 } from 'react-icons/fa';
 import { toggleUserBanAction } from '@/lib/server_actions/user';
 
 export default function UserContainer({ initialUsers }) {
 
     const users = initialUsers;
-
 
     const getRoleBadge = (role) => {
         if (role === 'admin') {
@@ -35,34 +34,39 @@ export default function UserContainer({ initialUsers }) {
 
     const getUserTypeBadge = (type) => {
         const normalizedType = type?.toLowerCase() || "";
-        if (normalizedType.includes('premium') || normalizedType.includes('pro')) {
+        
+        if (normalizedType === 'elite') {
             return {
-                className: "bg-amber-50 text-amber-700 border border-amber-200 font-bold",
+                className: "bg-amber-200 text-amber-700 border border-amber-200 font-black tracking-wide",
                 icon: <FaCrown className="text-amber-500" />
             };
         }
+        if (normalizedType === 'standard') {
+            return {
+                className: "bg-violet-200 text-violet-700 border border-violet-200 font-bold",
+                icon: <FaGem className="text-violet-500" />
+            };
+        }
+
         return {
-            className: "bg-blue-50 text-blue-600 border border-blue-200",
-            icon: <FaStar className="text-blue-400" />
+            className: "bg-zinc-200 text-zinc-600 border border-zinc-200",
+            icon: <FaStar className="text-zinc-400" />
         };
     };
 
-// 
+    const handleToggleBan = async (userId, currentStatus) => {
+        const res = await toggleUserBanAction(userId, currentStatus);
 
-
-const handleToggleBan = async (userId, currentStatus) => {
-    const res = await toggleUserBanAction(userId, currentStatus);
-
-    if (res.success) {
-        toast.success(currentStatus ? 'User unbanned successfully!' : 'User banned successfully!');
-    } else {
-        if (res.error === "You cannot ban yourself" || res.error?.includes("ban yourself")) {
-            toast.danger("Hey! You cannot ban your own Admin account.");
+        if (res.success) {
+            toast.success(currentStatus ? 'User unbanned successfully!' : 'User banned successfully!');
         } else {
-            toast.danger(res.error || 'Failed to update user status.');
+            if (res.error === "You cannot ban yourself" || res.error?.includes("ban yourself")) {
+                toast.danger("Hey! You cannot ban your own Admin account.");
+            } else {
+                toast.danger(res.error || 'Failed to update user status.');
+            }
         }
-    }
-};
+    };
 
     return (
         <>
@@ -154,7 +158,7 @@ const handleToggleBan = async (userId, currentStatus) => {
                                                             : "bg-red-50/80 text-red-600 border-red-200/60 hover:bg-red-100 hover:text-red-700"
                                                         }`}
                                                 >
- 
+
                                                     {user.banned ? <> <FaCheckCircle size={12} className="text-green-600" /> <span>Unban</span></> : <> <FaBan size={12} className="text-red-500" />  <span>Ban User</span></>}
                                                 </Button>
                                             </div>
@@ -227,8 +231,6 @@ const handleToggleBan = async (userId, currentStatus) => {
                     );
                 })}
             </div>
-        </>
+        </>  
     );
 }
-
-                                              
