@@ -5,6 +5,7 @@ import { getRecipeById } from '@/lib/api_actions/recipe_api';
 import AddFavouritesBtn from '@/Components/DashBoard/MyFavourites/AddFavouritesBtn';
 import { getUserSession } from '@/lib/core_function/server';
 import ReportModal from '@/Components/Recepies/ReportModal';
+import RecipePurchaseBtn from '@/Components/DashBoard/MyRecpies/RecipePurchaseBtn';
 
 const RecpieDetailsPage = async ({ params }) => {
     const { id } = await params;
@@ -119,10 +120,15 @@ const RecpieDetailsPage = async ({ params }) => {
 
                             <div className="flex flex-col gap-2.5 pt-2 border-t border-orange-100/30">
 
-                                <button className="w-full bg-rose-500 hover:bg-zinc-800 text-white font-bold text-sm py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-sm active:scale-98">
+                                {/* <button className="w-full bg-rose-500 hover:bg-zinc-800 text-white font-bold text-sm py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-sm active:scale-98">
                                     <FaCreditCard className="text-xs" />
-                                    <span>Purchase Recipe </span>
-                                </button>
+                                    <span>Purchase Recipe (2.99$) </span>
+                                </button> */}
+
+
+                                <RecipePurchaseBtn recipe={data} user={user} />
+
+
 
                                 <div className="grid grid-cols-3 gap-2">
 
@@ -131,18 +137,11 @@ const RecpieDetailsPage = async ({ params }) => {
                                         <span className="text-[10px] font-bold">Like</span>
                                     </button>
 
-                                    {/* <button className="flex flex-col items-center justify-center gap-1 bg-white hover:bg-amber-50/50 border border-orange-100/60 rounded-xl py-2.5 text-zinc-700 hover:text-amber-600 transition-colors">
-                                        <FaRegBookmark className="text-base" />
-                                        <span className="text-[10px] font-bold">Favorite</span>
-                                    </button> */}
+
 
                                     <AddFavouritesBtn recipe={data} user={user}> </AddFavouritesBtn>
 
-                                    {/* 
-                                    <button className="flex flex-col items-center justify-center gap-1 bg-white hover:bg-red-50/50 border border-orange-100/60 rounded-xl py-2.5 text-zinc-700 hover:text-red-600 transition-colors">
-                                        <FaRegFlag className="text-sm" />
-                                        <span className="text-[10px] font-bold">Report</span>
-                                    </button> */}
+
 
                                     <ReportModal recipe={data} user={user} ></ReportModal>
 
