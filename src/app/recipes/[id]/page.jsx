@@ -1,11 +1,12 @@
 import React from 'react';
 import Image from 'next/image';
-import { FaHeart, FaRegHeart, FaRegClock, FaGlobe, FaUtensils, FaRegBookmark, FaRegFlag, FaCreditCard } from 'react-icons/fa';
+import { FaHeart, FaRegClock, FaGlobe, FaUtensils, FaRegBookmark, FaRegFlag, FaCreditCard } from 'react-icons/fa';
 import { getRecipeById } from '@/lib/api_actions/recipe_api';
 import AddFavouritesBtn from '@/Components/DashBoard/MyFavourites/AddFavouritesBtn';
 import { getUserSession } from '@/lib/core_function/server';
 import ReportModal from '@/Components/Recepies/ReportModal';
 import RecipePurchaseBtn from '@/Components/DashBoard/MyRecpies/RecipePurchaseBtn';
+import LikeAction from '@/Components/DashBoard/MyRecpies/LikeAction';
 
 const RecpieDetailsPage = async ({ params }) => {
     const { id } = await params;
@@ -120,10 +121,7 @@ const RecpieDetailsPage = async ({ params }) => {
 
                             <div className="flex flex-col gap-2.5 pt-2 border-t border-orange-100/30">
 
-                                {/* <button className="w-full bg-rose-500 hover:bg-zinc-800 text-white font-bold text-sm py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-sm active:scale-98">
-                                    <FaCreditCard className="text-xs" />
-                                    <span>Purchase Recipe (2.99$) </span>
-                                </button> */}
+
 
 
                                 <RecipePurchaseBtn recipe={data} user={user} />
@@ -132,11 +130,8 @@ const RecpieDetailsPage = async ({ params }) => {
 
                                 <div className="grid grid-cols-3 gap-2">
 
-                                    <button className="flex flex-col items-center justify-center gap-1 bg-white hover:bg-rose-50/50 border border-orange-100/60 rounded-xl py-2.5 text-zinc-700 hover:text-rose-500 transition-colors">
-                                        <FaRegHeart className="text-base" />
-                                        <span className="text-[10px] font-bold">Like</span>
-                                    </button>
 
+                                    <LikeAction></LikeAction>
 
 
                                     <AddFavouritesBtn recipe={data} user={user}> </AddFavouritesBtn>
@@ -159,3 +154,5 @@ const RecpieDetailsPage = async ({ params }) => {
 };
 
 export default RecpieDetailsPage;
+
+

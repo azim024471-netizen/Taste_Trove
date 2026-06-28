@@ -4,9 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { redirect, usePathname, useRouter } from "next/navigation";
 import { FaUtensils, FaPlus, FaSignOutAlt, FaBars, FaTimes } from "react-icons/fa"; // 🎯 FaBars এবং FaTimes যুক্ত করা হয়েছে
-// import { HiUserCircle } from "react-icons/hi";
 import { authClient, useSession } from "@/lib/auth-client";
-import { Avatar, Button, Skeleton, toast } from "@heroui/react";
+import { Avatar,  Skeleton, toast } from "@heroui/react";
 
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -54,11 +53,24 @@ window.location.reload()
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    const navLinks = [
-        { name: "Home", path: "/" },
-        { name: "Explore Recipes", path: "/recipes" },
-        { name: "DashBoard", path: "/dashboard" },
-    ];
+const dashboardPath =
+  user?.role === "admin"
+    ? "/dashboard/admin"
+    : "/dashboard/user";
+
+const navLinks = [
+  { name: "Home", path: "/" },
+  { name: "Explore Recipes", path: "/recipes" },
+
+  ...(user
+    ? [
+        {
+          name: "Dashboard",
+          path: dashboardPath,
+        },
+      ]
+    : []),
+];
 
     return (
         <nav

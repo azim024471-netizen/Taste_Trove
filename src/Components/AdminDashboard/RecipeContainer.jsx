@@ -20,9 +20,7 @@ export default function RecipeContainer({ initialRecipes }) {
   const [recipes, setRecipes] = useState(initialRecipes);
   const [loadingId, setLoadingId] = useState(null);
   const router = useRouter();
-   console.log(initialRecipes, 'from error page 22222222222222222')
-  console.log(recipes ,  'from error page 3333333333333333333333')
-
+   
 
   const handleViewDetails = (recipeId) => {
     router.push(`/recipes/${recipeId}`);
