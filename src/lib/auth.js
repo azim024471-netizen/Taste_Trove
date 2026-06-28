@@ -15,6 +15,8 @@ export const auth = betterAuth({
     enabled: true, 
   }, 
 
+     
+
   user: {
     additionalFields: {
       user_type: {
@@ -30,6 +32,7 @@ export const auth = betterAuth({
       defaultRole: "user", 
     })
   ] 
-
+   , 
+   
 
 });

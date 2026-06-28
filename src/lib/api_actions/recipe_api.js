@@ -1,4 +1,4 @@
-import { serverFetch } from "../core_function/server"
+import { protectedFetch, serverFetch } from "../core_function/server"
 
  
  
@@ -16,17 +16,17 @@ export const getAllRecipes = async () => {
 
 
   export const getRecipeById = async (recipeId)=>{
-   return serverFetch(`/api/recipes/${recipeId}`)
+   return protectedFetch(`/api/recipes/${recipeId}`)
   }
 
 
   export const getRecipeByUserId = async(userID)=>{
-    return serverFetch(`/api/recipes/user/${userID}`)
+    return protectedFetch(`/api/recipes/user/${userID}`)
   }
 
 
   export const purchasedRecipeById = async (userId)=>{
-    return serverFetch(`/api/purchased/${userId}`)
+    return protectedFetch(`/api/purchased/${userId}`)
   }
 
 

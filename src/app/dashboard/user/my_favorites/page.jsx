@@ -8,7 +8,8 @@ const page = async () => {
     const session = await getUserSession();
     const user = session?.user;
     const favoriteRecipes = await myFavouritesRecpies(user?.id) || [];
-
+    console.log(myFavouritesRecpies, 'ofohwofhowwoohoihoi')
+      
     return (
         <div className="p-6 sm:p-10 max-w-7xl mx-auto space-y-6">
             <div className="flex items-center gap-3 border-b border-orange-100 pb-4">

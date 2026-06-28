@@ -1,11 +1,11 @@
-import { serverFetch } from "../core_function/server"
+import { protectedFetch} from "../core_function/server"
 
 
 export const countInfoForAdmin = async()=>{
-    return serverFetch('/api/admin/count-info')
+    return protectedFetch('/api/admin/count-info')
 }
 
 
 export const countInfoForUser = async(userId)=>{
-    return serverFetch(`/api/user/dashboard-stats/${userId}`)
+    return protectedFetch(`/api/user/dashboard-stats/${userId}`)
 }

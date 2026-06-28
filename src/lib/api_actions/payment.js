@@ -1,7 +1,6 @@
 'use server'
 
 
-import { data } from "motion/react-client"
 import { serverMutation } from "../core_function/server"
 
 
