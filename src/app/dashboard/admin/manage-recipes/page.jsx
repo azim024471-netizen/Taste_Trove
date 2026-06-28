@@ -1,11 +1,14 @@
-import { getRecipe } from '@/lib/api_actions/recipe_api';
+import { getAllRecipes } from '@/lib/api_actions/recipe_api';
 import RecipeContainer from '@/Components/AdminDashboard/RecipeContainer';
 import React from 'react';
 import { FaUtensils } from 'react-icons/fa';
 
 const page = async () => {
-    const recpieApi = await getRecipe();
-    const { recipes } = recpieApi;
+   
+    
+    const recipesData = await getAllRecipes()
+    const recipes = recipesData?.recipes
+   console.log(recipes , 'from main pageeeeeeeeeeeeeeeeeeeeeeeeeeeeeee')
 
     return (
         <div className="min-h-screen bg-zinc-50/50 p-4 md:p-8">

@@ -10,7 +10,9 @@ export const getRecipe = async (params) => {
 };
 
 
-
+export const getAllRecipes = async () => {
+    return serverFetch('/api/recipes/all');
+};
 
 
   export const getRecipeById = async (recipeId)=>{

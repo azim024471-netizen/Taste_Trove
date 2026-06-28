@@ -66,6 +66,8 @@ export async function POST(req) {
       success_url: successUrl,
       cancel_url: type === 'recipe' ? `${origin}/recipes/${recipeId}` : `${origin}/get_premium`,
     })
+   
+  console.log(session, 'from route.js')
 
     return NextResponse.json({ url: session.url })
   } catch (err) {

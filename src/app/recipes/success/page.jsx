@@ -13,7 +13,8 @@ const RecipeSuccessPage = async ({ searchParams }) => {
 
   const session = await stripe.checkout.sessions.retrieve(sessionId)
   if (session.payment_status !== 'paid') redirect('/recipes')
-
+    
+    console.log(session , sessionId, 'from success page')
   
 const { 
   userId, 

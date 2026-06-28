@@ -4,8 +4,6 @@ import React, { useState } from 'react';
 import { Button, toast } from "@heroui/react";
 import Image from 'next/image';
 import { 
-  // FaTrash, 
-  // FaEdit, 
   FaEye, 
   FaCheckCircle, 
   FaHeart, 
@@ -17,9 +15,14 @@ import DeleteRecpieModal from '../DashBoard/MyRecpies/DeleteRecpieModal';
 import { setFeature } from '@/lib/server_actions/feature';
 
 export default function RecipeContainer({ initialRecipes }) {
+
+
   const [recipes, setRecipes] = useState(initialRecipes);
   const [loadingId, setLoadingId] = useState(null);
   const router = useRouter();
+   console.log(initialRecipes, 'from error page 22222222222222222')
+  console.log(recipes ,  'from error page 3333333333333333333333')
+
 
   const handleViewDetails = (recipeId) => {
     router.push(`/recipes/${recipeId}`);
@@ -53,6 +56,7 @@ export default function RecipeContainer({ initialRecipes }) {
     if (lvl === 'medium') return "bg-amber-50 text-amber-700 border-amber-200";
     return "bg-red-50 text-red-700 border-red-200";
   };
+
 
   return (
     <>
