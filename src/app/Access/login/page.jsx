@@ -12,6 +12,11 @@ const LoginPage = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
     const router = useRouter();
+       const signInGoogle = async () => {
+        await authClient.signIn.social({
+            provider: "google",
+        });
+    };
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -39,7 +44,6 @@ const LoginPage = () => {
         }
 
         if (data) {
-            // alert("Logged in successfully!");
             router.push("/");
             setTimeout(()=> {
 window.location.reload()
@@ -120,7 +124,7 @@ window.location.reload()
                     <div className="flex-1 h-px bg-zinc-800" />
                 </div>
 
-                <Button className="w-full h-11 bg-zinc-950 text-zinc-200 border border-zinc-800 hover:bg-zinc-900 font-bold rounded-xl transition-all duration-200 text-sm flex items-center justify-center gap-2 shadow-sm">
+                <Button onClick={signInGoogle} className="w-full h-11 bg-zinc-950 text-zinc-200 border border-zinc-800 hover:bg-zinc-900 font-bold rounded-xl transition-all duration-200 text-sm flex items-center justify-center gap-2 shadow-sm">
                     <FcGoogle className="text-lg" /> Google
                 </Button>
 
