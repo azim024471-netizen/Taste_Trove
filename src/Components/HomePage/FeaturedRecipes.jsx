@@ -1,34 +1,58 @@
+'use client';
 import React from 'react';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 const FeaturedRecipes = ({ featuredRecipes }) => {
+  
+const cardVariants = {
+    hidden: { y: 100, opacity: 0 }, 
+    visible: { 
+        y: 0, 
+        opacity: 1, 
+        transition: { 
+            type: "spring",       
+            stiffness: 40,       
+            damping: 12,        
+            duration: 0.8 
+        } 
+    }
+};
+
     return (
         <section className="py-20 bg-zinc-50">
             <div className="container mx-auto px-4">
-                {/* Header Section with Gradient */}
                 <div className="text-center mb-16">
                     <h2 className="text-4xl md:text-5xl font-extrabold text-zinc-900 mb-4">
                         Our <span className="bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-rose-500">Featured Recipes</span>
                     </h2>
-                    <p className="text-zinc-600 max-w-2xl mx-auto text-lg">
-                        Discover the most loved and top-rated dishes carefully curated by our community. 
-                        Cook like a pro with these exquisite recipes.
-                    </p>
                 </div>
                 
-                {/* Grid layout */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     {featuredRecipes?.map((recipe) => (
-                        <div key={recipe._id} className="group bg-white rounded-3xl shadow-sm border border-zinc-100 overflow-hidden hover:shadow-2xl transition-all duration-300">
-                            {/* Image Section */}
+                        <motion.div 
+                            key={recipe._id} 
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.2 }}
+                            variants={cardVariants}
+                            className="group bg-white rounded-3xl shadow-sm border border-zinc-100 overflow-hidden hover:shadow-2xl transition-all duration-300"
+                        >
                             <div className="relative h-64 w-full overflow-hidden">
-                                <Image 
-                                    src={recipe.recipeImage} 
-                                    alt={recipe.recipeName}
-                                    fill
-                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                                />
+                                <motion.div
+                                    initial={{ scale: 0.8, opacity: 0 }}
+                                    whileInView={{ scale: 1, opacity: 1 }}
+                                    transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+                                    className="h-full w-full"
+                                >
+                                    <Image 
+                                        src={recipe.recipeImage} 
+                                        alt={recipe.recipeName}
+                                        fill
+                                        sizes="(max-width: 768px) 100vw, 33vw"
+                                        className="object-cover"
+                                    />
+                                </motion.div>
                                 <div className="absolute top-4 left-4">
                                     <span className="text-[10px] font-bold uppercase tracking-widest text-white bg-black/50 backdrop-blur-md px-3 py-1 rounded-full">
                                         {recipe.category}
@@ -36,7 +60,6 @@ const FeaturedRecipes = ({ featuredRecipes }) => {
                                 </div>
                             </div>
 
-                            {/* Content Section */}
                             <div className="p-6">
                                 <div className="flex justify-between items-center mb-4">
                                     <span className="text-sm text-zinc-400 font-medium">{recipe.preparationTime} mins</span>
@@ -59,7 +82,7 @@ const FeaturedRecipes = ({ featuredRecipes }) => {
                                     </button>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
             </div>
